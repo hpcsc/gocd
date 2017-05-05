@@ -18,3 +18,4 @@ services:
     volumes:
       - ./gocd-agent/godata:/godata
       - ./gocd-agent/home:/home/go
+      - /var/run/docker.sock:/var/run/docker.sock
