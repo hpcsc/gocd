@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: gocd/gocd-server:v17.3.0
+    image: gocd/gocd-server:v18.2.0
     ports:
       - "8153:8153"
       - "8154:8154"
@@ -10,7 +10,7 @@ services:
       - ./server/home:/home/go
 
   agent-1:
-    image: gocd/gocd-agent-ubuntu-16.04:v17.4.0
+    image: hpcsc/gocd-agent-dind:gocd-18.2.0-ubuntu-16.04-docker-17.12
     depends_on:
       - server
     environment:
@@ -18,9 +18,10 @@ services:
     volumes:
       - ./agents/agent-1/godata:/godata
       - ./agents/agent-1/home:/home/go
+      - /var/run/docker.sock:/var/run/docker.sock
 
   agent-2:
-    image: gocd/gocd-agent-ubuntu-16.04:v17.4.0
+    image: hpcsc/gocd-agent-dind:gocd-18.2.0-ubuntu-16.04-docker-17.12
     depends_on:
       - server
     environment:
@@ -28,9 +29,10 @@ services:
     volumes:
       - ./agents/agent-2/godata:/godata
       - ./agents/agent-2/home:/home/go
+      - /var/run/docker.sock:/var/run/docker.sock
 
   agent-3:
-    image: hpcsc/gocd-agent-dotnet:gocd-17.4.0-ubuntu-16.04-net-1.1
+    image: hpcsc/gocd-agent-dotnet:net-2.1
     depends_on:
       - server
     environment:
@@ -39,3 +41,11 @@ services:
       - ./agents/agent-3/godata:/godata
       - ./agents/agent-3/home:/home/go
       - /var/run/docker.sock:/var/run/docker.sock
+
+  git-repo:
+    image: gogs/gogs
+    ports:
+      - "10022:22"
+      - "3000:3000"
+    volumes:
+      - ./gogs:/data
