@@ -4,6 +4,8 @@ This repository uses `docker-compose` to setup a testing environment with one Go
 
 ### First time setup
 
+#### Starting docker-compose
+
 ```
 docker-compose up
 ```
@@ -19,3 +21,21 @@ Note:
 - Local git server can be accessed through: `http://localhost:3000`
 - All agent images have Docker CLI installed. However they use Docker socket from the host machine (by mounting `/var/run/docker.sock` from host machine to their own volume) so all containers created by the agents will be in host machine Docker. This idea is from [https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)
 - This is NOT production setup
+
+#### Setting up local Git server (gogs)
+
+Open local git server at http://localhost:3000
+
+Setup with following settings:
+
+- Database Type: PostgreSQL
+- Host: git-repo-db:5432
+- User: postgres
+- Password: postgrespw
+- Database Name: postgres
+
+The remaining leave as default. 
+
+Expand Admin Account Settings, fill in information to create an admin account
+
+Click 'Install Gogs'

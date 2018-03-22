@@ -47,5 +47,15 @@ services:
     ports:
       - "10022:22"
       - "3000:3000"
+    depends_on:
+      - git-repo-db
     volumes:
       - ./gogs:/data
+
+  git-repo-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespw
