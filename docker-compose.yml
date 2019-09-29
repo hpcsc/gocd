@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: gocd/gocd-server:v18.2.0
+    image: gocd/gocd-server:${GOCD_VERSION}
     ports:
       - "8153:8153"
       - "8154:8154"
@@ -10,40 +10,40 @@ services:
       - ./server/home:/home/go
 
   agent-1:
-    image: hpcsc/gocd-agent-dind:gocd-18.2.0-ubuntu-16.04-docker-17.12
+    image: gocd/gocd-agent-docker-dind:${GOCD_VERSION}
     depends_on:
       - server
     environment:
       GO_SERVER_URL: https://server:8154/go
+    privileged: true
     volumes:
       - ./agents/agent-1/godata:/godata
       - ./agents/agent-1/home:/home/go
-      - /var/run/docker.sock:/var/run/docker.sock
 
   agent-2:
-    image: hpcsc/gocd-agent-dind:gocd-18.2.0-ubuntu-16.04-docker-17.12
+    image: gocd/gocd-agent-docker-dind:${GOCD_VERSION}
     depends_on:
       - server
     environment:
       GO_SERVER_URL: https://server:8154/go
+    privileged: true
     volumes:
       - ./agents/agent-2/godata:/godata
       - ./agents/agent-2/home:/home/go
-      - /var/run/docker.sock:/var/run/docker.sock
 
   agent-3:
-    image: hpcsc/gocd-agent-dotnet:net-2.1
+    image: gocd/gocd-agent-docker-dind:${GOCD_VERSION}
     depends_on:
       - server
     environment:
       GO_SERVER_URL: https://server:8154/go
+    privileged: true
     volumes:
       - ./agents/agent-3/godata:/godata
       - ./agents/agent-3/home:/home/go
-      - /var/run/docker.sock:/var/run/docker.sock
 
   git-repo:
-    image: gogs/gogs
+    image: gogs/gogs:${GOGS_VERSION}
     ports:
       - "10022:22"
       - "3000:3000"
@@ -53,7 +53,7 @@ services:
       - ./gogs:/data
 
   git-repo-db:
-    image: postgres
+    image: postgres:${POSTGRES_VERSION}
     ports:
       - "5432:5432"
     environment:
