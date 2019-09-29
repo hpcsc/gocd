@@ -37,3 +37,16 @@ The remaining leave as default.
 Expand Admin Account Settings, fill in information to create an admin account
 
 Click 'Install Gogs'
+
+##### Gogs utilities scripts
+
+If you prefer command-line over Gogs UI, there are several shell scripts in `scripts` folder to automate the most common operations with Gogs:
+
+- `./scripts/generate-token.sh`: this will create an access token with name `default-access-token` in Gogs to perform operations using Gogs REST API. This script is used internally by the 2 scripts below.
+- `./scripts/create-git-repo.sh some-repo`: create git repo in Gogs
+- `./scripts/upload-public-key.sh`: upload your default public key at `~/.ssh/id_rsa.pub` to Gogs server. This is so that you can push to Gogs from your host machine using SSH.
+
+These scripts assume following tools are available in your system:
+
+- [jq](https://stedolan.github.io/jq/)
+- curl
