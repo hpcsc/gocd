@@ -22,21 +22,16 @@ Note:
 
 #### Setting up local Git server (gogs)
 
-Open local git server at http://localhost:3000
+- Open local git server at http://localhost:3000
+- Click Register, fill in information to create an admin account, .e.g.
 
-Setup with following settings:
+    ```
+    Username: gogs
+    Email: gogs@email.com
+    Password: password.123
+    ```
 
-- Database Type: PostgreSQL
-- Host: git-repo-db:5432
-- User: postgres
-- Password: postgrespw
-- Database Name: postgres
-
-The remaining leave as default.
-
-Expand Admin Account Settings, fill in information to create an admin account
-
-Click 'Install Gogs'
+- Log in
 
 ##### Gogs utilities scripts
 
