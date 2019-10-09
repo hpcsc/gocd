@@ -7,6 +7,7 @@ This repository uses `docker-compose` to setup a testing environment with one Go
 #### Starting docker-compose
 
 ```
+git submodule update --init
 docker-compose up -d
 ```
 
